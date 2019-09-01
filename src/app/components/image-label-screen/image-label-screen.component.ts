@@ -152,3 +152,7 @@ export class ImageLabelScreenComponent implements OnInit {
     }
   }
 }
+
+/*
+This is just a test
+ */
