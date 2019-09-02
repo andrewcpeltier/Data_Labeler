@@ -1,0 +1,19 @@
+<div class='image-div'>
+  <mat-card class='image-card' (click)='openImageDialog()'>
+    <mat-card-content class='image-content'>
+      <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+      <img class='data-image' id='viewImage'>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class='button-div'>
+  <mat-card class='button-card'>
+    <mat-card-title>Classification: {{ currentImage }}</mat-card-title>
+    <mat-card-content class='button-content'>
+      <button mat-raised-button type='button' (click)='previous()'>Previous</button>
+      <button mat-raised-button type='button' (click)='classButtonClick(0)' color='accent'>Man</button>
+      <button mat-raised-button type='button' (click)='classButtonClick(1)' color='accent'>Woman</button>
+      <button mat-raised-button type='button' (click)='classButtonClick(2)' color='accent'>Other</button>
+    </mat-card-content>
+  </mat-card>
+</div>
