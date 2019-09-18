@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Users } from 'src/app/models/Users';
 import { map } from 'rxjs/operators';
 import { Classifications } from 'src/app/models/Classifications';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-image-label-screen',
@@ -19,11 +20,13 @@ import { Classifications } from 'src/app/models/Classifications';
 export class ImageLabelScreenComponent implements OnInit {
 
   isLoggedIn: boolean;
+  populated: boolean;
   viewImage: HTMLImageElement;
   currentUser: Users;
   currentImage: number;
   usersLabels: Array<Classifications> = new Array<Classifications>();
   classifications = ['Man', 'Woman', 'Other'];
+  subscriptions: Subscription;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -83,6 +86,7 @@ export class ImageLabelScreenComponent implements OnInit {
   }
 
   classButtonClick(option: number) {
+
     // If the image classification exists, update the classification
     let existingLabel = false;
     for (const label of this.usersLabels) {
@@ -98,7 +102,9 @@ export class ImageLabelScreenComponent implements OnInit {
       newLabel.imageName = this.viewImage.src;
       newLabel.label = this.classifications[option];
       this.imageService.addClassification(newLabel);
+      this.usersLabels.push(newLabel);
     }
+
     // If there is another image in the database, update user and image to next image
     if (this.currentUser.imagePos < ImageLabelService.TEST_IMAGE_COUNT) {
       const userStorageRef = firebase.storage().ref().child('RandomImages/RanImg' + (this.currentUser.imagePos + 1) + '.png');
@@ -107,6 +113,7 @@ export class ImageLabelScreenComponent implements OnInit {
       });
       this.userService.updateUser(this.currentUser.key, { imagePos: this.currentUser.imagePos + 1 });
       this.currentImage++;
+
     // Otherwise, update both to first image
     } else {
       const userStorageRef = firebase.storage().ref().child('RandomImages/RanImg' + 1 + '.png');
@@ -118,6 +125,17 @@ export class ImageLabelScreenComponent implements OnInit {
     }
   }
 
+  /** TODO
+   *  ======================================================
+   *        **Connect to Non-Prob Before Attemptting**
+   *  ======================================================
+   *
+   *  This should be the issue you've been having. You're going to have to
+   *  unsubscribe from this method
+   *
+   * Search "unsubscribe from pipe angular 8"88
+   * https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
+   */
   getClassifications() {
     // Get classifications from the database
     this.imageService.getClassificationList().snapshotChanges().pipe(
@@ -127,15 +145,18 @@ export class ImageLabelScreenComponent implements OnInit {
       )
     )
     ).subscribe(classifications => {
-    // Find classifications from this user
-      for (const cl of classifications) {
-        if (cl.userID === this.currentUser.userID) {
-    // Store user classifications locally to be checked for updates
-          let imageExists = false;
-          for (const label of this.usersLabels) {
-            if (label.imageName === this.viewImage.src) { imageExists = true; }
+      if (!this.populated) {
+        // Find classifications from this user
+        for (const cl of classifications) {
+          if (cl.userID === this.currentUser.userID) {
+            // Store user classifications locally to be checked for updates
+            let imageExists = false;
+            for (const label of this.usersLabels) {
+              if (label.imageName === this.viewImage.src) { imageExists = true; }
+            }
+            if (!imageExists) { this.usersLabels.push(cl); }
+            this.populated = true;
           }
-          if (!imageExists) { this.usersLabels.push(cl); }
         }
       }
     });
