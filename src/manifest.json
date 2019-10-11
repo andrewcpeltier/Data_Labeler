@@ -1,0 +1,29 @@
+{
+  "name": "Cartoon Labeler",
+  "start_url": "/",
+  "orientation": "any",
+  "scope": "/",
+  "display": "standalone",
+
+  "short_name": "Labeler",
+  "theme_color": "#2196F3",
+  "background_color": "#FFAB40",
+  "icons": [
+    {
+      "src": "assets/cartoonLabelerLogo96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "assets/cartoonLabelerLogo144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "assets/cartoonLabelerLogo192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/cartoonLabelerLogo512.png",
+      "sizes": "512x512"
+    }
+  ]
+}
