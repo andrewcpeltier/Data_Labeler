@@ -19,6 +19,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { DataImageDialogComponent } from './components/data-image-dialog/data-image-dialog.component';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { InfoComponent } from './components/info/info.component';
+import { PageHostDirective } from './directives/page-host.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
     LoginComponent,
     ImageLabelScreenComponent,
     SideNavComponent,
-    DataImageDialogComponent
+    DataImageDialogComponent,
+    InfoComponent,
+    PageHostDirective
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -39,7 +43,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
     MatListModule
   ],
   providers: [AngularFirestore],
-  entryComponents: [DataImageDialogComponent],
+  entryComponents: [DataImageDialogComponent, ImageLabelScreenComponent, InfoComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
