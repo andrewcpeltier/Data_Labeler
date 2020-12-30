@@ -21,6 +21,7 @@ import { DataImageDialogComponent } from './components/data-image-dialog/data-im
 import { AngularFirestore } from '@angular/fire/firestore';
 import { InfoComponent } from './components/info/info.component';
 import { PageHostDirective } from './directives/page-host.directive';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PageHostDirective } from './directives/page-host.directive';
     SideNavComponent,
     DataImageDialogComponent,
     InfoComponent,
-    PageHostDirective
+    PageHostDirective,
+    MainComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

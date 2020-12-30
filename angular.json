@@ -118,6 +118,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "cartoonLabeler"
+    }
+  },
+  "defaultProject": "cartoonLabeler",
+  "cli": {
+    "analytics": "efb4ffea-cece-4fb6-b562-099ad387bb5d"
+  }
 }
