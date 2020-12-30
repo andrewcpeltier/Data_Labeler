@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatIconModule, MatInputModule, MatSelectModule, MatProgressSpinnerModule,
-        MatToolbarModule, MatCardModule, MatSlideToggleModule, MatDialogModule } from '@angular/material';
+        MatToolbarModule, MatCardModule, MatSlideToggleModule, MatDialogModule, MatTabsModule } from '@angular/material';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -39,7 +39,7 @@ import { MainComponent } from './components/main/main.component';
     AngularFireAuthModule, AngularFireStorageModule, AngularFireDatabaseModule,
     BrowserModule, BrowserAnimationsModule, MatButtonModule, MatIconModule, MatInputModule,
     AppRoutingModule, MatSelectModule, MatToolbarModule, MatCardModule, MatSlideToggleModule,
-    MatDialogModule, MatProgressSpinnerModule,
+    MatDialogModule, MatProgressSpinnerModule, MatTabsModule,
     LayoutModule,
     MatSidenavModule,
     MatListModule

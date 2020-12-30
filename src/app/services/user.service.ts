@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireObject, AngularFireList, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
+import * as firebase from 'firebase/app';
 import { Users } from '../models/Users';
 
 @Injectable({
@@ -24,5 +25,9 @@ export class UserService {
 
   getUserList(): AngularFireList<Users> {
     return this.usersRef;
+  }
+
+  getUsersCurrentImageReference(position: number): firebase.storage.Reference {
+    return firebase.storage().ref().child('RandomImages/RanImg' + position + '.png');
   }
 }

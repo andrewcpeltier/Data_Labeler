@@ -3,8 +3,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ImageLabelService } from 'src/app/services/image-label.service';
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
 import { DataImageDialogComponent } from '../data-image-dialog/data-image-dialog.component';
 import { UserService } from 'src/app/services/user.service';
 import { Users } from 'src/app/models/Users';
@@ -39,7 +37,7 @@ export class ImageLabelScreenComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.viewImage = document.getElementById('viewImage') as HTMLImageElement;
 
-    // Send back to home if notng ser
+    // Send back to home if not logged in
     if (!this.isLoggedIn) {
       this.router.navigate(['/']);
     } else {
@@ -69,7 +67,7 @@ export class ImageLabelScreenComponent implements OnInit {
         this.userService.createNewUser(newUser);
       }
     // Set the current image on the screen based on user's image position
-      const userStorageRef = firebase.storage().ref().child('RandomImages/RanImg' + this.currentUser.imagePos + '.png');
+      const userStorageRef = this.userService.getUsersCurrentImageReference(this.currentUser.imagePos);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
@@ -107,7 +105,7 @@ export class ImageLabelScreenComponent implements OnInit {
 
     // If there is another image in the database, update user and image to next image
     if (this.currentUser.imagePos < ImageLabelService.TEST_IMAGE_COUNT) {
-      const userStorageRef = firebase.storage().ref().child('RandomImages/RanImg' + (this.currentUser.imagePos + 1) + '.png');
+      const userStorageRef = this.userService.getUsersCurrentImageReference(this.currentUser.imagePos + 1);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
@@ -116,7 +114,7 @@ export class ImageLabelScreenComponent implements OnInit {
 
     // Otherwise, update both to first image
     } else {
-      const userStorageRef = firebase.storage().ref().child('RandomImages/RanImg' + 1 + '.png');
+      const userStorageRef = this.userService.getUsersCurrentImageReference(1);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
@@ -125,17 +123,6 @@ export class ImageLabelScreenComponent implements OnInit {
     }
   }
 
-  /** TODO
-   *  ======================================================
-   *        **Connect to Non-Prob Before Attemptting**
-   *  ======================================================
-   *
-   *  This should be the issue you've been having. You're going to have to
-   *  unsubscribe from this method
-   *
-   * Search "unsubscribe from pipe angular 8"88
-   * https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-   */
   getClassifications() {
     // Get classifications from the database
     this.imageService.getClassificationList().snapshotChanges().pipe(
@@ -164,7 +151,7 @@ export class ImageLabelScreenComponent implements OnInit {
 
   previous() {
     if (this.currentImage !== 1) {
-      const userStorageRef = firebase.storage().ref().child('RandomImages/RanImg' + (this.currentUser.imagePos - 1) + '.png');
+      const userStorageRef = this.userService.getUsersCurrentImageReference(this.currentUser.imagePos - 1);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
