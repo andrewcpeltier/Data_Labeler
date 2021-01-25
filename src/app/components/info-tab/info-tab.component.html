@@ -1,7 +1,16 @@
-<mat-card>
-  <mat-card-title>{{ infoTabModel.tabName }}</mat-card-title>
-</mat-card>
+<div class="title-card">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ infoTabModel.firstBodyTitle }}</mat-card-title>
+    </mat-card-header>
+    <div class="image-div">
+      <img class='data-image' [src]="infoTabModel.firstBodyAsset" id="viewImage">
+    </div>
+    <div class="body-div">
+      <mat-card-content class="body-content">{{ infoTabModel.firstBodyContent }}</mat-card-content>
+    </div>
+  </mat-card>
+</div>
 
-<!-- <div class="image-div">
-  <img class='data-image' [src]="infoTabModel.asset_1" id="viewImage">
-</div> -->
+
+

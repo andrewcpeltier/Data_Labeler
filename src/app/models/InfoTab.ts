@@ -1,4 +1,8 @@
 export class InfoTab {
-  tabName: string;
-  asset_1: string;
+  firstBodyTitle: string;
+  firstBodyContent: string;
+  firstBodyAsset: string;
+  secondBodyTitle: string;
+  secondBodyContent: string;
+  secondBodyAsset: string;
 }

@@ -7,6 +7,8 @@ import { ImageLabelScreenComponent } from '../image-label-screen/image-label-scr
 import { PageHostDirective } from 'src/app/directives/page-host.directive';
 import { InfoComponent } from '../info/info.component';
 
+const LABEL_DATA = 0;
+const PROJECT_DETAILS = 1;
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -17,6 +19,7 @@ export class SideNavComponent implements OnInit {
   IMAGE_LABEL_PAGE = ImageLabelScreenComponent;
   PROJECT_DETAILS_PAGE = InfoComponent;
   test: any;
+  currentPage = -1;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -26,16 +29,20 @@ export class SideNavComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService, private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
-    this.loadPage(this.IMAGE_LABEL_PAGE);
+    this.loadPage(this.IMAGE_LABEL_PAGE, LABEL_DATA);
   }
 
-  loadPage(component: any): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    const viewContainerRef = this.pageHost.viewContainerRef;
+  loadPage(component: any, type: number): void {
+    if (this.currentPage !== type) {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+      const viewContainerRef = this.pageHost.viewContainerRef;
 
-    viewContainerRef.clear();
+      viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+      const componentRef = viewContainerRef.createComponent(componentFactory);
+
+      this.currentPage = type;
+    }
   }
 
   tryLogout(): void {
