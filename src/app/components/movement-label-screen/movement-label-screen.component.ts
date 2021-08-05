@@ -63,14 +63,15 @@ export class MovementLabelScreenComponent implements OnInit {
         const newUser = new Users();
         newUser.userID = userID;
         newUser.imagePos = 1;
+        newUser.mvImagePos = 1;
         this.userService.createNewUser(newUser);
       }
     // Set the current image on the screen based on user's image position
-      const userStorageRef = this.userService.getUsersCurrentImageReference(this.currentUser.imagePos);
+      const userStorageRef = this.userService.getUsersCurrentMvReference(this.currentUser.mvImagePos);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
-      this.currentImage = this.currentUser.imagePos + 1;
+      this.currentImage = this.currentUser.mvImagePos + 1;
       this.getClassifications();
     });
   }
@@ -122,21 +123,21 @@ export class MovementLabelScreenComponent implements OnInit {
     }
 
     // If there is another image in the database, update user and image to next image
-    if (this.currentUser.imagePos < ImageLabelService.TEST_IMAGE_COUNT) {
-      const userStorageRef = this.userService.getUsersCurrentImageReference(this.currentUser.imagePos + 1);
+    if (this.currentUser.mvImagePos < ImageLabelService.TEST_IMAGE_COUNT) {
+      const userStorageRef = this.userService.getUsersCurrentMvReference(this.currentUser.mvImagePos + 1);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
-      this.userService.updateUser(this.currentUser.key, { imagePos: this.currentUser.imagePos + 1 });
+      this.userService.updateUser(this.currentUser.key, { mvImagePos: this.currentUser.mvImagePos + 1 });
       this.currentImage++;
 
     // Otherwise, update both to first image
     } else {
-      const userStorageRef = this.userService.getUsersCurrentImageReference(1);
+      const userStorageRef = this.userService.getUsersCurrentMvReference(1);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
-      this.userService.updateUser(this.currentUser.key, { imagePos: 1 });
+      this.userService.updateUser(this.currentUser.key, { mvImagePos: 1 });
       this.currentImage = 1;
     }
   }
@@ -150,11 +151,11 @@ export class MovementLabelScreenComponent implements OnInit {
 
   previous() {
     if (this.currentImage !== 1) {
-      const userStorageRef = this.userService.getUsersCurrentImageReference(this.currentUser.imagePos - 1);
+      const userStorageRef = this.userService.getUsersCurrentMvReference(this.currentUser.mvImagePos - 1);
       userStorageRef.getDownloadURL().then(url => {
         this.viewImage.src = url;
       });
-      this.userService.updateUser(this.currentUser.key, { imagePos: this.currentUser.imagePos - 1 });
+      this.userService.updateUser(this.currentUser.key, { mvImagePos: this.currentUser.mvImagePos - 1 });
       this.currentImage--;
     }
   }

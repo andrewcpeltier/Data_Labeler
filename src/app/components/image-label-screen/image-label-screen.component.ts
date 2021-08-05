@@ -64,6 +64,7 @@ export class ImageLabelScreenComponent implements OnInit {
         const newUser = new Users();
         newUser.userID = userID;
         newUser.imagePos = 1;
+        newUser.mvImagePos = 1;
         this.userService.createNewUser(newUser);
       }
     // Set the current image on the screen based on user's image position

@@ -30,4 +30,7 @@ export class UserService {
   getUsersCurrentImageReference(position: number): firebase.storage.Reference {
     return firebase.storage().ref().child('RandomImages/RanImg' + position + '.png');
   }
+  getUsersCurrentMvReference(position: number): firebase.storage.Reference {
+    return firebase.storage().ref().child('MovementImages/cat.jpg');
+  }
 }
