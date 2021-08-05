@@ -6,9 +6,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ImageLabelScreenComponent } from '../image-label-screen/image-label-screen.component';
 import { PageHostDirective } from 'src/app/directives/page-host.directive';
 import { InfoComponent } from '../info/info.component';
+import { MovementLabelScreenComponent } from '../movement-label-screen/movement-label-screen.component';
 
 const LABEL_DATA = 0;
-const PROJECT_DETAILS = 1;
+const MV_LABEL_DATA = 1;
+const PROJECT_DETAILS = 2;
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -17,6 +19,7 @@ const PROJECT_DETAILS = 1;
 export class SideNavComponent implements OnInit {
   @ViewChild(PageHostDirective, {static: true}) pageHost: PageHostDirective;
   IMAGE_LABEL_PAGE = ImageLabelScreenComponent;
+  MV_IMAGE_LABEL_PAGE = MovementLabelScreenComponent;
   PROJECT_DETAILS_PAGE = InfoComponent;
   test: any;
   currentPage = -1;

@@ -22,6 +22,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { InfoComponent } from './components/info/info.component';
 import { PageHostDirective } from './directives/page-host.directive';
 import { InfoTabComponent } from './components/info-tab/info-tab.component';
+import { MovementLabelScreenComponent } from './components/movement-label-screen/movement-label-screen.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { InfoTabComponent } from './components/info-tab/info-tab.component';
     DataImageDialogComponent,
     InfoComponent,
     PageHostDirective,
-    InfoTabComponent
+    InfoTabComponent,
+    MovementLabelScreenComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -45,7 +47,7 @@ import { InfoTabComponent } from './components/info-tab/info-tab.component';
     MatListModule
   ],
   providers: [AngularFirestore],
-  entryComponents: [DataImageDialogComponent, ImageLabelScreenComponent, InfoComponent],
+  entryComponents: [DataImageDialogComponent, ImageLabelScreenComponent, MovementLabelScreenComponent, InfoComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

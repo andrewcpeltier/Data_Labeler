@@ -27,22 +27,38 @@ export class ImageLabelService {
 
   // Replace this with something better
   public static TEST_IMAGE_COUNT = 4000;
-  private dbPath = '/classifications';
-  classRef: AngularFireList<Classifications> = null;
+  private ranDBPath = '/classifications';
+  private moveDBPath = '/move_classifications';
+  ranClassRep: AngularFireList<Classifications> = null;
+  moveClassRep: AngularFireList<Classifications> = null;
+
 
   constructor(private db: AngularFireDatabase) {
-    this.classRef = this.db.list(this.dbPath);
+    this.ranClassRep = this.db.list(this.ranDBPath);
+    this.moveClassRep = this.db.list(this.moveDBPath);
   }
 
   addClassification(classify: Classifications): void {
-    this.classRef.push(classify);
+    this.ranClassRep.push(classify);
   }
 
   updateClassification(key: string, value: any): Promise<void> {
-    return this.classRef.update(key, value);
+    return this.ranClassRep.update(key, value);
   }
 
   getClassificationList(): AngularFireList<Classifications> {
-    return this.classRef;
+    return this.ranClassRep;
+  }
+
+  addMovementClassification(classify: Classifications): void {
+    this.moveClassRep.push(classify);
+  }
+
+  updateMovementClassification(key: string, value: any): Promise<void> {
+    return this.moveClassRep.update(key, value);
+  }
+
+  getMovementClassificationList(): AngularFireList<Classifications> {
+    return this.moveClassRep;
   }
 }
